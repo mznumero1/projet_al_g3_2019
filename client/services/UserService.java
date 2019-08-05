@@ -46,67 +46,6 @@ public interface UserService {
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://services/UserService/addUserRequest", output = "http://services/UserService/addUserResponse")
-    public boolean addUser(
-        @WebParam(name = "arg0", partName = "arg0")
-        User arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns services.UserArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://services/UserService/getAllUsersRequest", output = "http://services/UserService/getAllUsersResponse")
-    public UserArray getAllUsers(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://services/UserService/updateUserEmailRequest", output = "http://services/UserService/updateUserEmailResponse")
-    public boolean updateUserEmail(
-        @WebParam(name = "arg0", partName = "arg0")
-        User arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns services.User
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://services/UserService/getUserRequest", output = "http://services/UserService/getUserResponse")
-    public User getUser(
-        @WebParam(name = "arg0", partName = "arg0")
-        int arg0,
-        @WebParam(name = "arg1", partName = "arg1")
-        String arg1);
-
-    /**
-     * 
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(partName = "return")
     @Action(input = "http://services/UserService/deleteUserRequest", output = "http://services/UserService/deleteUserResponse")
     public boolean deleteUser(
         @WebParam(name = "arg0", partName = "arg0")
@@ -132,12 +71,73 @@ public interface UserService {
      * @param arg1
      * @param arg0
      * @return
+     *     returns services.User
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://services/UserService/getUserRequest", output = "http://services/UserService/getUserResponse")
+    public User getUser(
+        @WebParam(name = "arg0", partName = "arg0")
+        int arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns services.UserArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://services/UserService/getAllUsersRequest", output = "http://services/UserService/getAllUsersResponse")
+    public UserArray getAllUsers(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
      *     returns boolean
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://services/UserService/updateUsernameRequest", output = "http://services/UserService/updateUsernameResponse")
-    public boolean updateUsername(
+    @Action(input = "http://services/UserService/addUserRequest", output = "http://services/UserService/addUserResponse")
+    public boolean addUser(
+        @WebParam(name = "arg0", partName = "arg0")
+        User arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://services/UserService/updateUserEmailRequest", output = "http://services/UserService/updateUserEmailResponse")
+    public boolean updateUserEmail(
+        @WebParam(name = "arg0", partName = "arg0")
+        User arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://services/UserService/updateUserRequest", output = "http://services/UserService/updateUserResponse")
+    public boolean updateUser(
         @WebParam(name = "arg0", partName = "arg0")
         User arg0,
         @WebParam(name = "arg1", partName = "arg1")
