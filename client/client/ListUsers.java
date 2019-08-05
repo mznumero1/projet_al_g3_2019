@@ -1,11 +1,12 @@
-package program;
+package client;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.util.*;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import domaine.*;
+import services.User;
+import services.UserService;
 
 public class ListUsers extends JFrame implements ActionListener
 {
@@ -14,15 +15,16 @@ public class ListUsers extends JFrame implements ActionListener
 	 */
 	private static final long serialVersionUID = 6623329687296830959L;
 	private JTable table;
+	UserService service;
+	String token;
 	private JScrollPane sc;
 	private JPanel panneau1,panneau2;
 	private JButton qt;
-    private DataInterface objetDistant;
 	
-	public ListUsers(ArrayList <User> liste,DataInterface objetDistant)
+	public ListUsers(List <User> liste, UserService service, String token)
 	{
-	
-		this.objetDistant=objetDistant;
+		this.service = service;
+		this.token = token;
 		panneau1=new JPanel();
 		panneau2=new JPanel();
 		qt = new JButton("Quitter");
@@ -30,25 +32,23 @@ public class ListUsers extends JFrame implements ActionListener
 		  table = new JTable();
 		  sc.setViewportView(table);
 		  DefaultTableModel modele = (DefaultTableModel)table.getModel();
-		  modele.addColumn("Numero Serveur");
+		  modele.addColumn("ID");
 		  modele.addColumn("Nom");
-		  modele.addColumn("IP");
-		  modele.addColumn("Admin");
-		  modele.addColumn("Salle");
+		  modele.addColumn("Email");
+		  modele.addColumn("Role");
 		  		
 		  int ligne=0;
-		  for (Serveur emp : liste)
+		  for (User emp : liste)
 		  {
 			  modele.addRow( new Object[0]);
-			  modele.setValueAt(String.valueOf(emp.getNumServ()),ligne,0);
-			  modele.setValueAt(emp.getNomServeur(), ligne, 1);
-			  modele.setValueAt(emp.getIP(),ligne,2);
-			  modele.setValueAt(emp.getAdmin(),ligne, 3);
-			  modele.setValueAt(emp.getSalle(),ligne, 4);
+			  modele.setValueAt(String.valueOf(emp.getId()),ligne,0);
+			  modele.setValueAt(emp.getUsername(), ligne, 1);
+			  modele.setValueAt(emp.getEmail(),ligne,2);
+			  modele.setValueAt(emp.getRole(),ligne, 3);
 			  ligne++;
 		  }
 		 
-		  setTitle("Client RMI:liste des serveurs");
+		  setTitle("Liste des utilisateurs");
 		  setSize(550,500);
 		  qt.addActionListener(this); 
 		  panneau1.add(sc);
@@ -63,7 +63,7 @@ public class ListUsers extends JFrame implements ActionListener
     	if (e.getSource()==qt)
     	{
     		dispose();
-    		new Client(objetDistant);
+    		new Client(service, token);
     	}
     }
 }
