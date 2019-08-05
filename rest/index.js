@@ -1,5 +1,5 @@
 /*
-*Restful web service
+*Rest web service
 *Author MZ
 *Since 03/07/2019
 */
@@ -7,8 +7,17 @@ var express = require('express');
 var mysql = require('mysql');
 var session = require('express-session');
 var bodyParser = require('body-parser');
-var format = require('xml');
+var easyxml = require('easyxml');
 var path = require('path');
+
+
+var xmlRenderer = new easyxml({
+    singularize: true,
+    rootElement: 'response',
+    dateFormat: 'ISO',
+    manifest: true
+});
+
 var con = mysql.createConnection({
 
     host:"localhost",
@@ -17,17 +26,34 @@ var con = mysql.createConnection({
     database:"mglsi_news"
 });
 
+
 var app = express();
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
+//Fonction permettant de choisir le type de reponse
+app.use(function(req, res, next) {
+  res.sendData = function(obj) {
+    if (req.accepts('json') || req.accepts('text/html')) {
+      res.header('Content-Type', 'application/json');
+      res.json(obj);
+    } else if (req.accepts('application/xml')) {
+      res.header('Content-Type', 'text/xml');
+      var xml = xmlRenderer.render(obj);
+      res.send(xml);
+    } else {
+      res.send(406);
+    }
+  };
+  next();
+});
 
 //Liste des articles
 app.get("/rest/articles", (req, res, next) => {
     
     con.query("Select * from Article", function(err, result, fields){
         if(err) throw err;
-        res.json(result);
+        res.status(200).sendData(result);
     });
 
 });
@@ -35,19 +61,19 @@ app.get("/rest/articles", (req, res, next) => {
 //liste des  categories
 app.get("/rest/categories", (req, res, next) =>{
 
-    con.query("SELECT * FROM Categorie ", function(err, result, fields) {
+    con.query("Select * from Categorie ", function(err, result, fields) {
         if(err) throw err;
-        res.json(result);
+        res.status(200).sendData(result);
     })
 });
 
 //liste des articles d'unde categorie
  app.get("/rest/categories/:categorie/articles", (req, res, next) =>{
 
-    console.log(req.params.categorie);
-   con.query('SELECT * FROM Article WHERE categorie = ?',[req.params.categorie], function(err, result, fields) {
+   var cat = req.params.categorie;
+   con.query('Select * from Article where categorie = ?',[cat], function(err, result, fields) {
         if(err) throw err;
-        res.json(result);
+        res.status(200).sendData(result);
     })
 });
 
