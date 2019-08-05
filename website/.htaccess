@@ -1,0 +1,15 @@
+# On suit les liens symboliques 
+Options +FollowSymlinks 
+# Activation du mod rewrite d'Apache 
+RewriteEngine On
+
+# Réécriture des URL
+RewriteRule ^(.*)articles-([0-9]+)$ Controller/controleur.php?action=article&id=$2
+RewriteRule ^(.*)categorie-([0-9]+)(.*)$ $1Controller/controleur.php?action=categorie&id=$2$3
+RewriteRule ^(.*)articles?page=([0-9]+)$ Controller/controleur.php?action=listArticles&page=$2
+RewriteRule ^(.*)login$ Controller/controleur.php?action=login
+RewriteRule ^(.*)editer$ Controller/controleur.php?action=editer
+RewriteRule ^(.*)admin$ Controller/controleur.php?action=admin
+RewriteRule ^(.*)ajouter$ Controller/controleur.php?action=ajouter
+RewriteRule ^(.*)supprimer$ Controller/controleur.php?action=supprimer
+RewriteRule ^(.*)articles$ Controller/controleur.php?action=listArticles [L]
