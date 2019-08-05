@@ -5,10 +5,8 @@
 */
 var express = require('express');
 var mysql = require('mysql');
-var session = require('express-session');
 var bodyParser = require('body-parser');
 var easyxml = require('easyxml');
-var path = require('path');
 
 
 var xmlRenderer = new easyxml({
