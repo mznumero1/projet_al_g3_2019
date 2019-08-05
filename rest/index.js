@@ -5,10 +5,10 @@
 */
 var express = require('express');
 var mysql = require('mysql');
-var bodyParser = require('body-parser');
 var easyxml = require('easyxml');
 
 
+//Configuration du parser xml
 var xmlRenderer = new easyxml({
     singularize: true,
     rootElement: 'response',
@@ -16,6 +16,7 @@ var xmlRenderer = new easyxml({
     manifest: true
 });
 
+//Connexion a mysql
 var con = mysql.createConnection({
 
     host:"localhost",
@@ -24,10 +25,8 @@ var con = mysql.createConnection({
     database:"mglsi_news"
 });
 
-
+//Initialisation du serveur express
 var app = express();
-app.use(bodyParser.urlencoded({extended : true}));
-app.use(bodyParser.json());
 
 //Fonction permettant de choisir le type de reponse
 app.use(function(req, res, next) {
@@ -56,7 +55,7 @@ app.get("/rest/articles", (req, res, next) => {
 
 });
 
-//liste des  categories
+//Liste des  categories
 app.get("/rest/categories", (req, res, next) =>{
 
     con.query("Select * from Categorie ", function(err, result, fields) {
@@ -65,7 +64,7 @@ app.get("/rest/categories", (req, res, next) =>{
     })
 });
 
-//liste des articles d'unde categorie
+//Liste des articles d'unde categorie
  app.get("/rest/categories/:categorie/articles", (req, res, next) =>{
 
    var cat = req.params.categorie;
@@ -75,7 +74,7 @@ app.get("/rest/categories", (req, res, next) =>{
     })
 });
 
-//demarrage
+//Demarrage du serveur
 app.listen(8000, ()=> {
     console.log("Server running on localhost:8000");
 })
