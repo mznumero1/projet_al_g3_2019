@@ -79,10 +79,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean updateUsername(User u,String token) {
+	public boolean updateUser(User u,String token) {
 		try {
 			if(dao.getUser(token).getRole().equalsIgnoreCase(ADMIN_ROLE))
-				return dao.updateUsername(u);
+				return dao.updateUser(u);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (NumberFormatException e) {

@@ -69,10 +69,12 @@ public class DAO {
 		return res >0;
 	}
 	
-	public boolean updateUsername(User u)  throws SQLException {
-		st = con.prepareStatement("update user set username=? where id=?)");
-		st.setString(1, u.getUsername());;
-		st.setInt(2, u.getId());
+	public boolean updateUser(User u)  throws SQLException {
+		st = con.prepareStatement("update user set username=?, role=?, email=? where id=?");
+		st.setString(1, u.getUsername());
+		st.setString(2, u.getRole());
+		st.setString(3, u.getEmail());
+		st.setInt(4, u.getId());
 		int res = st.executeUpdate();
 		return res >0;
 	}

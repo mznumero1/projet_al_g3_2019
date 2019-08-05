@@ -23,7 +23,7 @@ public interface UserService {
 	public boolean deleteUser(int id,String token);
 	
 	@WebMethod
-	public boolean updateUsername(User u,String token);
+	public boolean updateUser(User u,String token);
 	
 	@WebMethod
 	public boolean updateUserEmail(User u,String token);
